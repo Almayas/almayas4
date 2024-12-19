@@ -1,0 +1,19 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<h2>Checkout</h2>
+<h4>Order Total: ${{ cart.total }}</h4>
+<form action="{% url 'store:checkout' %}" method="post" id="payment-form">
+    {% csrf_token %}
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ stripe_publishable_key }}"
+            data-description="Payment for your order"
+            data-amount="{{ cart.total|multiply:'100' }}"
+            data-currency="usd"
+            data-name="Almayas4"
+            data-locale="auto"></script>
+</form>
+{% endblock %}
